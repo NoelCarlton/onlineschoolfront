@@ -38,23 +38,23 @@ export const constantRouterMap = [
   },
 
   {
-    path: '/example',
+    path: '/teacher',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    redirect: '/teacher/index',
+    name: '教师管理',
+    meta: { title: '教师管理', icon: 'example' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'index',
+        name: '信息展示',
+        component: () => import('@/views/teacher/index'),
+        meta: { title: '教师信息展示', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'save',
+        name: '信息查询',
+        component: () => import('@/views/teacher/save'),
+        meta: { title: '信息保存', icon: 'tree' }
       }
     ]
   },
