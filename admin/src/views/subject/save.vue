@@ -64,6 +64,7 @@ export default {
           type:"success",
           message: response.msg
         })
+        this.$router.push({path:"/subject/list"})
       }
     },
     fielUploadError(response){
