@@ -87,72 +87,47 @@ export const constantRouterMap = [
     ]
   },
   {
-    path: '/form',
+    path: '/course',
     component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
-    path: '/nested',
-    component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
+    redirect: '/course/list',
+    name: '课程管理',
     meta: {
-      title: 'Nested',
+      title: '课程列表',
       icon: 'nested'
     },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
+        path: 'list',
+        component: () => import('@/views/course/list'), // Parent router-view
+        name: '课程管理',
+        meta: { title: '课程列表', icon: 'tree' }
+      },      
+      {
+        path: 'info',
+        name: '课程信息',
+        component: () => import('@/views/course/info'),
+        meta: { title: '课程信息', icon: 'table' }
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        meta: { title: 'menu2' }
+        path: 'info/:id',
+        name: '课程信息',
+        hidden: true,
+        component: () => import('@/views/course/info'),
+        meta: { title: '课程信息', icon: 'table' }
+      },
+      {
+        path: 'add/:id',
+        hidden: true,
+        name: '发布课程',
+        component: () => import('@/views/course/add'),
+        meta: { title: '课程发布', icon: 'table' }
+      },
+      {
+        path: 'chapter/:id',
+        hidden: true,
+        name: '课程大纲信息',
+        component: () => import('@/views/course/chapter'),
+        meta: { title: '课程大纲', nocache: true }
       }
     ]
   },
