@@ -8,6 +8,12 @@ export default {
       data: query
     })
   },
+  getAll() {
+    return request({
+      url: `/eduservice/edu-teacher/all`,
+      method: 'get'
+    })
+  },
   deleteById(id){
     return request({
       url: `/eduservice/edu-teacher/${id}`,
