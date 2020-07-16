@@ -48,6 +48,20 @@
         <el-input-number v-model="courseInfo.price" :min="0" controls-position="right"
                   placeholder="输入课程价格"/>
       </el-form-item>
+      <el-form-item label="课程简介">
+        <tinymce :height="300" v-model="courseInfo.description">
+      </el-form-item>
+      <el-form-item label="课程封面">
+        <el-upload
+          class="avatar-uploader"
+          :action="BASE_API+'/oss/uploadAvatar'"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeUplaod"
+          :show-file-list="false"
+          name = "image">
+          <img :src="courseInfo.cover" style="height:200px;"/>
+        </el-upload>
+      </el-form-item>
       <el-form-item label="课程描述">
         <el-input v-model="courseInfo.description"
                   placeholder="一点点课程描述"/>
@@ -63,7 +77,9 @@
 import courseApi from '@/api/course/course'
 import teacherApi from '@/api/teacher/teacher'
 import subjectApi from '@/api/subject/subject'
+import Tinymce from '@/components/Tinymce'
 export default {
+  components: {Tinymce},
   data () {
     return {
       active: 1,
@@ -76,8 +92,9 @@ export default {
         lessonId:"",
         description:"",
         price:0,
-        cover:""
+        cover:"/static/default.png"
       },
+      BASE_API:process.env.BASE_API,
       teachers:[],
       subjectLevel1:[],
       subjectLevel2:[]
@@ -118,7 +135,28 @@ export default {
           this.courseInfo.subjectId = '';
         }
       }
-    }
+    },
+    handleAvatarSuccess(res, file) {
+      console.log(res);
+        this.courseInfo.cover = res.data.url;
+    },
+    beforeUplaod(file) {
+        const isJPG = file.type === 'image/jpeg';
+        const isLt2M = file.size / 1024 / 1024 < 2;
+
+        if (!isJPG) {
+          this.$message.error('Avatar picture must be JPG format!');
+        }
+        if (!isLt2M) {
+          this.$message.error('Avatar picture size can not exceed 2MB!');
+        }
+        return isJPG && isLt2M;
+      }
   }
 }
 </script>
+<style scoped>
+.tinymce-container{
+  line-height: 29px;
+}
+</style>
